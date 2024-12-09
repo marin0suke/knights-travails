@@ -16,6 +16,7 @@ function knightMoves(startSquare, goalSquare) {
     const getPath = (start, end) => { // BFS to explore shortest path.
         let queue = [[start, [start]]]; // element 1 is current, and element 2 is the saved path. we want to update this each iteration to find shortest path.
         const visited = new Set(); // serves as a checklist of visited squares, to avoid adding the same squares to the queue. (some moves will have the same "neighbours" that have already been visited.)
+        // Set.has() has O(1) lookup. 
 
         while (queue.length > 0) {
             const [current, path] = queue.shift(); // this takes first element in queue, and destructures it into current and path.
@@ -24,7 +25,7 @@ function knightMoves(startSquare, goalSquare) {
                 return path; // return the path element of the array that fulfills this check.
             }
 
-            visited.add(`${current[0]}, ${current[1]}`); // use string format for easy lookup.
+            visited.add(`${current[0]}, ${current[1]}`); // use string format for easy lookup. - if we added the array, we couldn't use .has for lookup - would need to manually check + more complicated.
 
             for (const move of validMoves(current[0], current[1])) { // for each valid move from the current position.
                 if (!visited.has(`${move[0]}, ${move[1]}`)) { 
